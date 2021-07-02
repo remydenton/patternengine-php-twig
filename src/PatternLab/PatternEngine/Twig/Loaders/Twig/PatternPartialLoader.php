@@ -14,9 +14,10 @@
 namespace PatternLab\PatternEngine\Twig\Loaders\Twig;
 
 use \PatternLab\PatternEngine\Util;
+use \Twig\Source;
 
-class PatternPartialLoader implements \Twig_LoaderInterface, \Twig_ExistsLoaderInterface {
-	
+class PatternPartialLoader implements \Twig\Loader\LoaderInterface, \Twig\Loader\ExistsLoaderInterface, \Twig\Loader\SourceContextLoaderInterface {
+
 	/** Identifier of the main namespace. */
 	const MAIN_NAMESPACE = '__main__';
 	
@@ -132,6 +133,13 @@ class PatternPartialLoader implements \Twig_LoaderInterface, \Twig_ExistsLoaderI
 		return file_get_contents($this->findTemplate($name));
 	}
 	
+	/**
+	 * {@inheritdoc}
+	 */
+	public function getSourceContext($name) {
+		return new Source(file_get_contents($this->findTemplate($name)));
+	}
+
 	/**
 	 * {@inheritdoc}
 	 */
