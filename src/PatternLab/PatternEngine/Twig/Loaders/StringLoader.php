@@ -16,6 +16,7 @@ use \PatternLab\Config;
 use \PatternLab\Dispatcher;
 use \PatternLab\PatternEngine\Loader;
 use \PatternLab\PatternEngine\Twig\TwigUtil;
+use \PatternLab\PatternEngine\Twig\Loaders\PatternLabStringLoader;
 
 class StringLoader extends Loader {
 	
@@ -48,8 +49,8 @@ class StringLoader extends Loader {
 		if (count($filesystemLoaderPaths) > 0) {
 			$loaders[] = new \Twig_Loader_Filesystem($filesystemLoaderPaths);
 		}
-		$loaders[] = new \Twig_Loader_String();
-		
+		$loaders[] = new PatternLabStringLoader();
+
 		// set-up Twig
 		$twigLoader = new \Twig_Loader_Chain($loaders);
 		$instance   = new \Twig_Environment($twigLoader, array("debug" => $twigDebug));

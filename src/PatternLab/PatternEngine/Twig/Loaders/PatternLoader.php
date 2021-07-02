@@ -19,6 +19,7 @@ use \PatternLab\PatternEngine\Twig\Loaders\Twig\PatternPartialLoader as Twig_Loa
 use \PatternLab\PatternEngine\Twig\Loaders\Twig\PatternStringLoader as Twig_Loader_PatternStringLoader;
 use \PatternLab\PatternEngine\Loader;
 use \PatternLab\PatternEngine\Twig\TwigUtil;
+use \PatternLab\PatternEngine\Twig\Loaders\PatternLabStringLoader;
 
 class PatternLoader extends Loader {
 	
@@ -84,8 +85,8 @@ class PatternLoader extends Loader {
 		// 3. add String loader
 		// This *must* go last or no loaders after will work ~ https://github.com/symfony/symfony/issues/10865
 		// @todo Remove `Twig_Loader_String` - if a Twig include path is wrong, this outputs the string anyway with no error ~ https://github.com/symfony/symfony/issues/10865
-		$loaders[] = new \Twig_Loader_String();
-		
+		$loaders[] = new PatternLabStringLoader();
+
 		// set-up Twig
 		$twigLoader = new \Twig_Loader_Chain($loaders);
 		$instance   = new \Twig_Environment($twigLoader, array("debug" => $twigDebug, "autoescape" => $twigAutoescape));
